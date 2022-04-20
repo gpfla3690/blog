@@ -5,16 +5,20 @@ import com.yhr.blog.dao.MemberRepository;
 import com.yhr.blog.domain.Member;
 import com.yhr.blog.dto.member.MemberSaveForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -45,5 +49,12 @@ public class MemberService {
         );
 
         return memberOptional.get();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        return memberRepository.findByLoginId(loginId).orElseThrow(
+                () -> new NoSuchElementException("해당 회원은 존재하지 않습니다.")
+        );
     }
 }
