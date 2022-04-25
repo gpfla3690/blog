@@ -43,5 +43,10 @@ public class Article {
     }
 
 
+    public void modifyArticle( String title, String body ) {
 
+        this.title = title;
+        this.body = body;
+
+    }
 }
