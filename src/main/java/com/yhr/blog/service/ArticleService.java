@@ -3,12 +3,16 @@ package com.yhr.blog.service;
 import com.yhr.blog.dao.ArticleRepository;
 import com.yhr.blog.domain.Article;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.article.ArticleDTO;
+import com.yhr.blog.dto.article.ArticleListDTO;
 import com.yhr.blog.dto.article.ArticleModifyForm;
 import com.yhr.blog.dto.article.ArticleSaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,6 +55,26 @@ public class ArticleService {
                 articleModifyForm.getTitle(),
                 articleModifyForm.getBody()
         );
+
+    }
+
+    public List<ArticleListDTO> getArticleList() {
+
+        List<Article> articleList = articleRepository.findAll();
+
+        List<ArticleListDTO> articleDTOList = new ArrayList<>();
+
+        for (Article article : articleList){
+
+            ArticleListDTO articleDTO = new ArticleListDTO(article);
+            articleDTOList.add(articleDTO);
+
+        }
+        return articleDTOList;
+
+
+
+
 
     }
 }
