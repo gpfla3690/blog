@@ -2,6 +2,7 @@ package com.yhr.blog.service;
 
 import com.yhr.blog.dao.ArticleRepository;
 import com.yhr.blog.domain.Article;
+import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
 import com.yhr.blog.dto.article.ArticleDTO;
 import com.yhr.blog.dto.article.ArticleListDTO;
@@ -23,7 +24,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     @Transactional
-    public void save(ArticleSaveForm articleSaveForm, Member member) {
+    public void save(ArticleSaveForm articleSaveForm, Category category, Member member) {
 
         Article article = Article.createArticle(
                 articleSaveForm.getTitle(),
@@ -31,6 +32,7 @@ public class ArticleService {
         );
 
         article.setMember(member);
+        article.setCategory(category);
 
         articleRepository.save(article);
     }

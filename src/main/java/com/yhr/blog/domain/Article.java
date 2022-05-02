@@ -47,6 +47,13 @@ public class Article {
         member.getArticles().add(this);
     }
 
+    public void setCategory(Category category){
+
+        this.category = category;
+        category.getArticles().add(this);
+
+    }
+
 
     public void modifyArticle( String title, String body ) {
 

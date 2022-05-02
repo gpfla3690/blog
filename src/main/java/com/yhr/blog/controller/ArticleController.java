@@ -1,12 +1,14 @@
 package com.yhr.blog.controller;
 
 import com.yhr.blog.domain.Article;
+import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
 import com.yhr.blog.dto.article.ArticleDTO;
 import com.yhr.blog.dto.article.ArticleListDTO;
 import com.yhr.blog.dto.article.ArticleModifyForm;
 import com.yhr.blog.dto.article.ArticleSaveForm;
 import com.yhr.blog.service.ArticleService;
+import com.yhr.blog.service.CategoryService;
 import com.yhr.blog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,9 +26,13 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final MemberService memberService;
+    private final CategoryService categoryService;
 
     @GetMapping("/articles/write")
-    public String showWrite(){
+    public String showWrite(Model model){
+
+        model.addAttribute("categoryList", categoryService.findAll());
+
         return "usr/article/write";
     }
 
@@ -34,10 +40,14 @@ public class ArticleController {
     public String doWrite(ArticleSaveForm articleSaveForm, Principal principal, Model model){
 
         try {
+
+            Category findCategory = categoryService.findById(articleSaveForm.getCategoryId());
+
             Member findMember = memberService.findByLoginId(principal.getName());
 
             articleService.save(
                     articleSaveForm,
+                    findCategory,
                     findMember
             );
         }catch (IllegalStateException e){
