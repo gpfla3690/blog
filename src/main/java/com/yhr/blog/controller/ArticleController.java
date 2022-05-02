@@ -67,6 +67,8 @@ public class ArticleController {
             return "redirect:/";
         }
 
+        model.addAttribute("selectedCategory", findArticle.getCategory().getId());
+        model.addAttribute("categoryList", categoryService.findAll());
         model.addAttribute("articleModifyForm", new ArticleModifyForm(findArticle));
         model.addAttribute("id", id);
 
@@ -76,7 +78,9 @@ public class ArticleController {
     @PostMapping("/articles/modify/{id}")
     public String doModify(@PathVariable(name="id") Long id, ArticleModifyForm articleModifyForm){
 
-        articleService.modifyArticle(articleModifyForm, id);
+        Category findCategory = categoryService.findById(articleModifyForm.getCategoryId());
+
+        articleService.modifyArticle(articleModifyForm, id, findCategory);
 
         return "redirect:/";
 
