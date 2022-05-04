@@ -13,20 +13,21 @@
     <div class="">
         <div class="">
 
-            <h1>카테고리 리스트</h1>
+            <h1>카테고리</h1>
+            <h1 th:text="${name}"></h1>
 
             <table>
 
                 <thead>
-                    <tr>카테고리</tr>
+                    <tr>
+                        <th>게시글 제목</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="category : ${categoryList}">
+                    <tr>
                         <td>
-                            <a th:href="@{~/categories/} + ${category.id}">
-                                <span th:text="${category.name}"></span>
-                            </a>
+                            <span th:text="${category.title}"></span>
                         </td>
                     </tr>
                 </tbody>

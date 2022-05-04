@@ -2,6 +2,7 @@ package com.yhr.blog.controller;
 
 import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.category.CategoryDTO;
 import com.yhr.blog.dto.category.CategoryListDTO;
 import com.yhr.blog.dto.category.CategoryModifyForm;
 import com.yhr.blog.dto.category.CategorySaveForm;
@@ -75,6 +76,18 @@ public class CategoryController {
 
         return "usr/category/list";
 
+    }
+
+
+    @GetMapping("/categories/{id}")
+    public String showDetail(@PathVariable(name = "id") Long id, Model model){
+
+        CategoryDTO category = categoryService.getCategory(id);
+
+        model.addAttribute("name", category.getName());
+        model.addAttribute("category", category);
+
+        return "usr/category/detail";
     }
 
 }

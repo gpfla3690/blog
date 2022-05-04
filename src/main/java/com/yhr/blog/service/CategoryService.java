@@ -1,8 +1,10 @@
 package com.yhr.blog.service;
 
 import com.yhr.blog.dao.CategoryRepository;
+import com.yhr.blog.domain.Article;
 import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.category.CategoryDTO;
 import com.yhr.blog.dto.category.CategoryListDTO;
 import com.yhr.blog.dto.category.CategoryModifyForm;
 import com.yhr.blog.dto.category.CategorySaveForm;
@@ -65,6 +67,22 @@ public class CategoryService {
                 categoryModifyForm.getId(),
                 categoryModifyForm.getName()
         );
+
+    }
+
+    public CategoryDTO getCategory(Long id) {
+
+        Category findCategory = findById(id);
+
+        List<Article> articles = findCategory.getArticles();
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        for(Article article : articles){
+            categoryDTO.setCategoryDTO(findCategory, article);
+        }
+
+        return categoryDTO;
 
     }
 }
