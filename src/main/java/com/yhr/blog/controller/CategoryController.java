@@ -2,6 +2,7 @@ package com.yhr.blog.controller;
 
 import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.category.CategoryListDTO;
 import com.yhr.blog.dto.category.CategoryModifyForm;
 import com.yhr.blog.dto.category.CategorySaveForm;
 import com.yhr.blog.service.CategoryService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -62,6 +64,17 @@ public class CategoryController {
         categoryService.modifyCategory(categoryModifyForm, id);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/categories")
+    public String showCategory(Model model){
+
+        List<CategoryListDTO> categoryList = categoryService.findAll();
+
+        model.addAttribute("categoryList", categoryList);
+
+        return "usr/category/list";
+
     }
 
 }

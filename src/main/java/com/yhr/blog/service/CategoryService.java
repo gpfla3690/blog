@@ -3,12 +3,14 @@ package com.yhr.blog.service;
 import com.yhr.blog.dao.CategoryRepository;
 import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.category.CategoryListDTO;
 import com.yhr.blog.dto.category.CategoryModifyForm;
 import com.yhr.blog.dto.category.CategorySaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -32,8 +34,17 @@ public class CategoryService {
 
     }
 
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public List<CategoryListDTO> findAll() {
+        List<Category> categoryList = categoryRepository.findAll();
+
+        List<CategoryListDTO> categoryListDTOS = new ArrayList<>();
+
+        for(Category category : categoryList){
+            CategoryListDTO categoryListDTO = new CategoryListDTO(category);
+            categoryListDTOS.add(categoryListDTO);
+        }
+
+        return categoryListDTOS;
     }
 
     public Category findById(Long id){
