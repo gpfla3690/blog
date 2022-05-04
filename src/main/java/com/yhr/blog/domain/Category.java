@@ -46,6 +46,13 @@ public class Category {
 
     }
 
+    public void modifyCategory(Long id, String name){
+
+        this.id = id;
+        this.name = name;
+
+    }
+
 
 
 

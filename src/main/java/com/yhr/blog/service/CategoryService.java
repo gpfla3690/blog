@@ -3,6 +3,7 @@ package com.yhr.blog.service;
 import com.yhr.blog.dao.CategoryRepository;
 import com.yhr.blog.domain.Category;
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.category.CategoryModifyForm;
 import com.yhr.blog.dto.category.CategorySaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,18 @@ public class CategoryService {
         return categoryRepository.findById(id).orElseThrow(
                 () -> {throw new NoSuchElementException("해당 카테고리는 존재하지 않습니다.");
                 }
+        );
+
+    }
+
+    @Transactional
+    public void modifyCategory(CategoryModifyForm categoryModifyForm, Long id) {
+
+        Category findCategory = findById(id);
+
+        findCategory.modifyCategory(
+                categoryModifyForm.getId(),
+                categoryModifyForm.getName()
         );
 
     }
