@@ -20,14 +20,14 @@
 
                 <thead>
                     <tr>
-                        <th>게시글 제목</th>
+                        <th>게시글 목록</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr th:each="article : ${articles}">
                         <td>
-                            <span th:text="${category.title}"></span>
+                            <span th:text="${article.title}"></span>
                         </td>
                     </tr>
                 </tbody>
