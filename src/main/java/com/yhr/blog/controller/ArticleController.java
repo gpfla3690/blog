@@ -114,6 +114,7 @@ public class ArticleController {
         ArticleDTO findArticle = articleService.getArticle(id);
 
         model.addAttribute("article", findArticle);
+        model.addAttribute("replies", findArticle.getReplies());
 
         return "usr/article/detail";
     }
