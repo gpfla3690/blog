@@ -4,10 +4,14 @@ import com.yhr.blog.dao.ReplyRepository;
 import com.yhr.blog.domain.Article;
 import com.yhr.blog.domain.Member;
 import com.yhr.blog.domain.Reply;
+import com.yhr.blog.dto.reply.ReplyModifyForm;
 import com.yhr.blog.dto.reply.ReplySaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +29,23 @@ public class ReplyService {
 
         replyRepository.save(reply);
 
+    }
+
+    public Reply findById(Long id){
+
+        Optional<Reply> findReply = replyRepository.findById(id);
+
+        return findReply.orElseThrow(
+                () -> {
+                    throw new NoSuchElementException("해당 댓글은 존재하지 않습니다.");
+                }
+        );
+
+    }
+
+
+    @Transactional
+    public void modifyReply(ReplyModifyForm replyModifyForm, Reply findReply) {
+        findReply.modifyReply(replyModifyForm);
     }
 }
