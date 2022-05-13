@@ -10,6 +10,7 @@ import com.yhr.blog.dto.article.ArticleSaveForm;
 import com.yhr.blog.service.ArticleService;
 import com.yhr.blog.service.CategoryService;
 import com.yhr.blog.service.MemberService;
+import com.yhr.blog.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.id.BulkInsertionCapableIdentifierGenerator;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class ArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final ReplyService replyService;
 
     @GetMapping("/articles/write")
     public String showWrite(Model model, ArticleSaveForm articleSaveForm){
@@ -114,7 +116,7 @@ public class ArticleController {
         ArticleDTO findArticle = articleService.getArticle(id);
 
         model.addAttribute("article", findArticle);
-        model.addAttribute("replies", findArticle.getReplies());
+        model.addAttribute("replyList", replyService.getDtoList());
 
         return "usr/article/detail";
     }
