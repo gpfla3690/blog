@@ -1,19 +1,19 @@
 package com.yhr.blog.controller;
 
+import com.yhr.blog.dto.myblog.MyBlogMainDTO;
 import com.yhr.blog.dto.myblog.MyBlogSaveForm;
 import com.yhr.blog.service.MyBlogService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/b")
 @RequiredArgsConstructor
 public class MyBlogController {
 
@@ -49,6 +49,26 @@ public class MyBlogController {
         myBlogService.createBlog(myBlogSaveForm, loginId);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/{loginId}")
+    public String showMyBlog(@PathVariable(name = "loginId") String loginId,
+                             @RequestParam(value = "category", required = false, defaultValue = "all") String categoryName,
+                             Model model){
+
+        MyBlogMainDTO myBlogMainDto = myBlogService.getMyBlogMainDto(loginId);
+
+        if(categoryName.equals("all")){
+            model.addAttribute("articleList", myBlogService.getArticles());
+        }else{
+            model.addAttribute("articleList", myBlogService.getArticleByCategoryName(categoryName));
+        }
+
+        model.addAttribute("loginId", loginId);
+        model.addAttribute("categoryName", categoryName);
+        model.addAttribute("info", myBlogMainDto);
+
+        return "usr/blog/blogMain";
 
     }
 
