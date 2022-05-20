@@ -34,7 +34,7 @@ function changeInput(e, articleId, replyId){
                     updateValue : inputValue
                 }
             ),
-            header : {
+            headers : {
                 'Content-Type' : 'application/json',
                 'X-CSRF-TOKEN' : token,
             }
