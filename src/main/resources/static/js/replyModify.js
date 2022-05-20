@@ -25,8 +25,6 @@ function changeInput(e, articleId, replyId){
 
         const inputValue = e.parentElement.childNodes[1].value;
 
-        console.log(inputValue)
-
         let data = {
             method : "POST",
             body : JSON.stringify(
