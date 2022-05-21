@@ -28,3 +28,29 @@ body{
     color: red;
 }
 
+.img-box{
+    position:relative;
+}
+
+.T-img{
+    position:absolute;
+    visibility:hidden;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.B-img{
+    vertical-align: middle;
+}
+
+.img-box:hover {
+  opacity:0.7;
+ }
+
+.img-box:hover .T-img {
+   visibility:visible;
+ }
+
+
