@@ -53,4 +53,8 @@ body{
    visibility:visible;
  }
 
+ .header-menu{
+    z-index: 1;
+ }
+
 
