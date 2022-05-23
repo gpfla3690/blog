@@ -94,6 +94,17 @@ public class ArticleService {
 
     }
 
+    public List<ArticleDTO> getArticleDtoList(List<Article> articleList){
+
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
+
+        for (Article article : articleList) {
+            ArticleDTO articleDTO = new ArticleDTO(article);
+            articleDTOList.add(articleDTO);
+        }
+        return  articleDTOList;
+    }
+
 
     public ArticleDTO getArticle(Long id) {
 

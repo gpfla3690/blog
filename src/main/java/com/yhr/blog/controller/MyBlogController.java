@@ -1,5 +1,6 @@
 package com.yhr.blog.controller;
 
+import com.yhr.blog.dto.article.ArticleDTO;
 import com.yhr.blog.dto.myblog.MyBlogMainDTO;
 import com.yhr.blog.dto.myblog.MyBlogSaveForm;
 import com.yhr.blog.service.MyBlogService;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/b")
@@ -29,6 +31,8 @@ public class MyBlogController {
         // myblog가 없을 때
         if(!myBlogService.ownBlog(loginId)){
             return "usr/blog/createBlog";
+        }else if (myBlogService.ownBlog(loginId)){
+            return "redirect:/b/" + loginId;
         }
 
         return "usr/member/myblog";
@@ -43,7 +47,7 @@ public class MyBlogController {
         }
 
         if(myBlogService.ownBlog(loginId)){
-            return "redirect:/";
+            return "redirect:/b/" + loginId;
         }
 
         myBlogService.createBlog(myBlogSaveForm, loginId);
@@ -58,8 +62,10 @@ public class MyBlogController {
 
         MyBlogMainDTO myBlogMainDto = myBlogService.getMyBlogMainDto(loginId);
 
+        List<ArticleDTO> articleByLoginId = myBlogService.getArticleByLoginId(loginId);
+
         if(categoryName.equals("all")){
-            model.addAttribute("articleList", myBlogService.getArticles());
+            model.addAttribute("articleList", articleByLoginId);
         }else{
             model.addAttribute("articleList", myBlogService.getArticleByCategoryName(categoryName));
         }
@@ -70,6 +76,20 @@ public class MyBlogController {
 
         return "usr/blog/blogMain";
 
+    }
+
+    @GetMapping("/{loginId}/articles/{id}")
+    public String showDetail(@PathVariable(name = "loginId") String loginId,
+                             @PathVariable(name = "id") int id,
+                             Model model
+                             ){
+
+        List<ArticleDTO> findArticle = myBlogService.getArticleByLoginId(loginId);
+
+        model.addAttribute("articleId", id);
+        model.addAttribute("article", findArticle);
+
+        return "usr/article/detail";
     }
 
 }
