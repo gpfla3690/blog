@@ -75,6 +75,10 @@ public class Member implements UserDetails {
 
     }
 
+    public void changePw(String pw){
+        this.loginPw = pw;
+    }
+
     public void setMyBlog(MyBlog myBlog){
         this.myBlog = myBlog;
     }

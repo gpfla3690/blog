@@ -76,4 +76,16 @@ public class MemberService implements UserDetailsService {
         return findMember.getId();
 
     }
+
+    @Transactional
+    public void changePw(String pw, Member member){
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        member.changePw(bCryptPasswordEncoder.encode(pw));
+    }
+
+    public boolean isDupleMember(String loginId){
+        return memberRepository.existsByLoginId(loginId);
+    }
+
 }
