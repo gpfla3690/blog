@@ -82,6 +82,7 @@ public class MemberService implements UserDetailsService {
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         member.changePw(bCryptPasswordEncoder.encode(pw));
+
     }
 
     public boolean isDupleMember(String loginId){

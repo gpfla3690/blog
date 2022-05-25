@@ -24,7 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(authorize -> authorize
                         .mvcMatchers("/members/join",
-                                    "/members/login"
+                                    "/members/login",
+                                "/members/find/pw",
+                                "/mails/find/pw"
                         ).anonymous()
                         .mvcMatchers("/",
                                 "/articles/**",
