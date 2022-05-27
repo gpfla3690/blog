@@ -22,6 +22,8 @@ public class ArticleDTO {
 
     private String nickname;
 
+    private String categoryName;
+
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
 
@@ -32,6 +34,7 @@ public class ArticleDTO {
         this.title = article.getTitle();
         this.body = article.getBody();
         this.nickname = article.getMember().getNickname();
+        this.categoryName = article.getCategory().getName();
         this.regDate = article.getRegDate();
         this.updateDate = article.getUpdateDate();
         this.replies = article.getReplies();
