@@ -60,6 +60,8 @@ public class MyBlogController {
                              @RequestParam(value = "category", required = false, defaultValue = "all") String categoryName,
                              Model model){
 
+        System.out.println("categoryName : " + categoryName);
+
         MyBlogMainDTO myBlogMainDto = myBlogService.getMyBlogMainDto(loginId);
 
         List<ArticleDTO> articleByLoginId = myBlogService.getArticleByLoginId(loginId);

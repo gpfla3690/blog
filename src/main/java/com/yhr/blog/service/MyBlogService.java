@@ -73,6 +73,7 @@ public class MyBlogService {
 
         List<ArticleDTO> articleList = new ArrayList<>();
         CategoryDTO findCategory = categoryService.getCategory(categoryName);
+        System.out.println("findCategory" + findCategory);
 
         for(Article article : findCategory.getArticles()){
             ArticleDTO articleDTO = articleService.getArticle(article.getId());

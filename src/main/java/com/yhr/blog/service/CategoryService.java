@@ -86,6 +86,12 @@ public class CategoryService {
 
         Category findCategory = findById(id);
 
+        List<Article> articles = findCategory.getArticles();
+
+        for(Article article : articles){
+            article.setCategory(null);
+        }
+
         categoryRepository.delete(findCategory);
     }
 
@@ -101,11 +107,9 @@ public class CategoryService {
 
     public Category findByName(String name){
 
-        Optional<Category> optionalCategory = categoryRepository.findByName(name);
-
-        return optionalCategory.orElseThrow(
-                () -> new NoSuchElementException("해당 카테고리는 존재하지 않습니다.")
-        );
+       return categoryRepository.findByName(name).orElseThrow(
+               () -> {throw new NoSuchElementException("해당 카테고리는 존재하지 않습니다.");}
+       );
         
     }
 
