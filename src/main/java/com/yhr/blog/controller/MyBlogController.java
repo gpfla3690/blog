@@ -60,15 +60,15 @@ public class MyBlogController {
                              @RequestParam(value = "category", required = false, defaultValue = "all") String categoryName,
                              Model model){
 
-        System.out.println("categoryName : " + categoryName);
-
         MyBlogMainDTO myBlogMainDto = myBlogService.getMyBlogMainDto(loginId);
 
         List<ArticleDTO> articleByLoginId = myBlogService.getArticleByLoginId(loginId);
 
         if(categoryName.equals("all")){
             model.addAttribute("articleList", articleByLoginId);
-        }else{
+        }else if (categoryName.equals("none")){
+            model.addAttribute("articleList", myBlogService.getNoCategoryArticleList(loginId));
+        } else{
             model.addAttribute("articleList", myBlogService.getArticleByCategoryName(categoryName));
         }
 

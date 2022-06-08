@@ -23,7 +23,13 @@ public class ArticleModifyForm {
     public ArticleModifyForm(Article findArticle){
         this.title = findArticle.getTitle();
         this.body = findArticle.getBody();
-        this.categoryId = findArticle.getCategory().getId();
+
+        if(findArticle.getCategory() != null){
+            this.categoryId = findArticle.getCategory().getId();
+        }else{
+            categoryId = null;
+        }
+
     }
 
 }

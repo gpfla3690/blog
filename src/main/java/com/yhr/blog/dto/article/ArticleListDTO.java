@@ -26,7 +26,14 @@ public class ArticleListDTO {
         this.title = article.getTitle();
         this.nickname = article.getMember().getNickname();
         this.regDate = article.getRegDate();
-        this.category = article.getCategory().getName();
+
+        if(article.getCategory() != null){
+            this.category = article.getCategory().getName();
+        }else{
+            this.category = null;
+        }
+
+
 
     }
 

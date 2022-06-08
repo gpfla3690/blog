@@ -19,6 +19,8 @@ public class MyBlogMainDTO {
 
     private List<CategoryDTO> categoryDTOList;
 
+    private int noCateArticleSize;
+
     public MyBlogMainDTO(Member member){
 
         this.nickname = member.getNickname();

@@ -26,7 +26,7 @@ public class Article {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -55,7 +55,9 @@ public class Article {
     public void setCategory(Category category){
 
         this.category = category;
-        category.getArticles().add(this);
+        if(category != null){
+            category.getArticles().add(this);
+        }
 
     }
 

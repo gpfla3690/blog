@@ -76,7 +76,6 @@ public class ArticleService {
 
     }
 
-
     public List<ArticleDTO> getArticleDTOList(){
 
         List<Article> articleList = articleRepository.findAll();
