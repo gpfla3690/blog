@@ -87,6 +87,8 @@ public class MemberController {
             return false;
         }
 
+        SecurityContextHolder.clearContext();
+
         memberService.deleteMember(loginId);
 
         return true;
