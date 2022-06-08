@@ -63,6 +63,7 @@ public class MyBlogService {
 
         MyBlogMainDTO myBlogMainDTO = new MyBlogMainDTO(findMember);
         myBlogMainDTO.setCategoryDTOList(categoryDTOList);
+        myBlogMainDTO.setNoCateArticleSize(getNoCategoryArticleListSize(loginId));
         return myBlogMainDTO;
     }
 

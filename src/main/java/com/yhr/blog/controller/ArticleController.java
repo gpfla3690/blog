@@ -83,7 +83,7 @@ public class ArticleController {
 //        Article findArticle = articleService.findById(id);
 
         Member findMember = memberService.findByLoginId(principal.getName());
-        Article findArticle = findMember.getArticles().get(id - 1);
+        Article findArticle = findMember.getArticles().get(id);
 
 
         if(!findArticle.getMember().getLoginId().equals(principal.getName())){
@@ -141,14 +141,21 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public String showDetail(@PathVariable(name = "id") Long id, Model model){
+    public String showDetail(@PathVariable(name = "id") int id, Model model, Principal principal){
 
-        ArticleDTO findArticle = articleService.getArticle(id);
+//        ArticleDTO findArticle = articleService.getArticle(id);
+//
+//        List<ReplyListDTO> replyList = replyService.getDtoList(findArticle.getId());
+//
+//        model.addAttribute("article", findArticle);
+//        model.addAttribute("replyList", replyList);
 
-        List<ReplyListDTO> replyList = replyService.getDtoList(findArticle.getId());
+        Member findMember = memberService.findByLoginId(principal.getName());
+        Article findArticle = findMember.getArticles().get(id - 1);
 
-        model.addAttribute("article", findArticle);
-        model.addAttribute("replyList", replyList);
+        model.addAttribute("articleId", id);
+        model.addAttribute("article", new ArticleDTO(findArticle));
+        model.addAttribute("replyList", replyService.getDtoList((long) id));
 
         return "usr/article/detail";
     }
