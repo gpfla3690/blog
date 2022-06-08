@@ -26,11 +26,11 @@ public class Article {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
     private LocalDateTime regDate = LocalDateTime.now();

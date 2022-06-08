@@ -22,7 +22,7 @@ public class Category {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Article> articles = new ArrayList<>();
 
     private LocalDateTime regDate = LocalDateTime.now();
