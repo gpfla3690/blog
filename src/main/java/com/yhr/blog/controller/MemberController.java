@@ -1,6 +1,7 @@
 package com.yhr.blog.controller;
 
 import com.yhr.blog.domain.Member;
+import com.yhr.blog.dto.member.CheckStatus;
 import com.yhr.blog.dto.member.MemberModifyForm;
 import com.yhr.blog.dto.member.MemberSaveForm;
 import com.yhr.blog.service.MemberService;
@@ -92,6 +93,17 @@ public class MemberController {
         memberService.deleteMember(loginId);
 
         return true;
+    }
+
+    @RequestMapping("/members/check/id")
+    @ResponseBody
+    public CheckStatus checkDuple(@RequestParam String loginId){
+
+        boolean isExists = memberService.isDupleMember(loginId);
+
+        CheckStatus checkStatus = new CheckStatus(isExists);
+
+        return checkStatus;
     }
 
 
