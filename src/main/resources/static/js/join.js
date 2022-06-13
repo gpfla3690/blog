@@ -9,14 +9,14 @@ async function checkDupleLoginId(){
     await fetch("http://localhost:8085/members/check/id?loginId=" + loginId)
     .then(
         (response) => {
-            return response;
+            return response.json();
         }
     )
     .then(
         (data) => {
             let idCheck = data;
 
-            if( !idCheck.status || loginId === ""){
+            if( idCheck.status || loginId === ""){
                 LOGIN_ID_STATUS = false;
                 alert("가입하실 수 없는 아이디 입니다.");
             }else{
