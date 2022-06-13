@@ -97,4 +97,7 @@ public class MemberService implements UserDetailsService {
         memberRepository.delete(findMember);
     }
 
+    public boolean idDupleNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
 }

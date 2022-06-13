@@ -32,6 +32,45 @@ async function checkDupleLoginId(){
     )
 }
 
+async function checkDupleNickname(){
+
+    let inputNickname = document.querySelector("#nickname");
+    let nickname = inputNickname.value;
+
+    await fetch("http://localhost:8085/members/check/nickname?nickname=" + nickname)
+    .then(
+        (response) => {
+
+            return response.json();
+        }
+
+    )
+    .then(
+        (data) => {
+
+            let nicknameCheck = data;
+
+            if(nicknameCheck.status || nickname===""){
+                NICKNAME_STATUS = false;
+                alert("가입하실 수 없는 닉네임 입니다.")
+            }else{
+                NICKNAME_STATUS = true;
+                alert("가입하실 수 있는 닉네임 입니다.")
+            }
+
+
+        }
+
+    )
+    .catch(
+        (error) => {
+            console.log(error);
+        }
+
+    )
+
+}
+
 function checkStatus(){
     if(LOGIN_ID_STATUS){
         CHECK_STATUS = true;
